@@ -1,0 +1,85 @@
+/**
+* old code to save for records and possible
+* future reuse.
+*
+* @author DMark
+*/
+
+// Moving Flag code
+        if (states.update_key_led) {
+            static uint32_t colors[5];
+            states.update_key_led = 0;
+            if (++states.led_position > 5) {
+                states.led_position = 0;
+            }
+            switch (states.led_position) {
+            case 0:
+                colors[0] = 0x002000;
+                colors[1] = 0x002000;
+                colors[2] = 0x202020;
+                colors[3] = 0x202020;
+                colors[4] = 0x000020;
+                colors[5] = 0x000020;
+                break;
+            case 1:
+                colors[5] = 0x002000;
+                colors[0] = 0x002000;
+                colors[1] = 0x202020;
+                colors[2] = 0x202020;
+                colors[3] = 0x000020;
+                colors[4] = 0x000020;
+                break;
+            case 2:
+                colors[4] = 0x002000;
+                colors[5] = 0x002000;
+                colors[0] = 0x202020;
+                colors[1] = 0x202020;
+                colors[2] = 0x000020;
+                colors[3] = 0x000020;
+                break;
+            case 3:
+                colors[3] = 0x002000;
+                colors[4] = 0x002000;
+                colors[5] = 0x202020;
+                colors[0] = 0x202020;
+                colors[1] = 0x000020;
+                colors[2] = 0x000020;
+                break;
+            case 4:
+                colors[2] = 0x002000;
+                colors[3] = 0x002000;
+                colors[4] = 0x202020;
+                colors[5] = 0x202020;
+                colors[0] = 0x000020;
+                colors[1] = 0x000020;
+                break;
+            case 5:
+                colors[1] = 0x002000;
+                colors[2] = 0x002000;
+                colors[3] = 0x202020;
+                colors[4] = 0x202020;
+                colors[5] = 0x000020;
+                colors[0] = 0x000020;
+                break;
+            default:
+                break;
+            }
+            for (int i = 0; i < 3; i++) {
+                pio_sm_put_blocking(pio, sm, colors[0] << 8);
+            }
+            for (int i = 0; i < 4; i++) {
+                pio_sm_put_blocking(pio, sm, colors[1] << 8);
+            }
+            for (int i = 0; i < 4; i++) {
+                pio_sm_put_blocking(pio, sm, colors[2] << 8);
+            }
+            for (int i = 0; i < 4; i++) {
+                pio_sm_put_blocking(pio, sm, colors[3] << 8);
+            }
+            for (int i = 0; i < 4; i++) {
+                pio_sm_put_blocking(pio, sm, colors[4] << 8);
+            }
+            for (int i = 0; i < 2; i++) {
+                pio_sm_put_blocking(pio, sm, colors[5] << 8);
+            }
+        }
